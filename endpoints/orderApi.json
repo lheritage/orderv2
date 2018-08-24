@@ -1,0 +1,305 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Order API",
+    "version": "2.0",
+    "description": "This is version 2.0 of order api.   Adding ability to retrieve all orders."
+  },
+  "host": "forrester.axway.com",
+  "paths": {
+    "/order": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "summary": "This will submit orders. ",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "validateOnly",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/orders"
+            },
+            "x-examples": {
+              "application/json": {
+                "customerid": "ut laboris esse",
+                "shippingaddress": "pariatur in deserunt anim",
+                "orderheaderdata": {
+                  "number": "ex cupidatat proident aliqua ullamco",
+                  "date": "cillum Duis"
+                },
+                "items": [
+                  {
+                    "itemid": "in anim",
+                    "name": "Ut",
+                    "price": "dolor Excepteur et exercitation magna",
+                    "size": "adipisicing elit amet cillum"
+                  }
+                ],
+                "orderid": "minim nisi labore"
+              }
+            }
+          }
+        ],
+        "x-flow": "orderApi-postOrder"
+      },
+      "options": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            },
+            "headers": {
+              "allow": {
+                "type": "string",
+                "default": "OPTIONS, POST"
+              }
+            }
+          }
+        },
+        "summary": "Displays the methods that are allowed",
+        "parameters": [],
+        "x-flow": "orderApi-optionsOrder"
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/orders"
+              }
+            },
+            "examples": {
+              "application/json": [
+                {
+                  "customerid": "non aliquip ea",
+                  "shippingaddress": "anim ut",
+                  "orderheaderdata": {
+                    "total": "nostrud eu ad",
+                    "store": "exercitation aliquip sunt Ut"
+                  },
+                  "items": [
+                    {
+                      "itemid": "esse qui",
+                      "name": "Excepteur cillum non",
+                      "price": "elit",
+                      "size": "sit laborum fugiat"
+                    }
+                  ],
+                  "orderid": "in Lorem"
+                },
+                {
+                  "customerid": "anim",
+                  "shippingaddress": "nostru",
+                  "orderheaderdata": {
+                    "total": "anim nost",
+                    "store": "ut aliqua id nul"
+                  },
+                  "items": [
+                    {
+                      "itemid": "qui ",
+                      "name": "ut esse id nulla",
+                      "price": "sit aliquip Ut irure",
+                      "size": "ea in ut dolore aliquip"
+                    },
+                    {
+                      "itemid": "in enim",
+                      "name": "irure",
+                      "price": "in id",
+                      "size": "officia consectetur"
+                    }
+                  ],
+                  "orderid": "elit non reprehenderit cillum"
+                },
+                {
+                  "customerid": "officia enim velit",
+                  "shippingaddress": "deserunt ex commodo",
+                  "orderheaderdata": {
+                    "total": "et est do",
+                    "store": "laborum culpa fugiat eiusmod"
+                  },
+                  "items": [
+                    {
+                      "itemid": "sit mollit laboris",
+                      "name": "esse id",
+                      "price": "esse",
+                      "size": "qui ut mollit ea nostrud"
+                    },
+                    {
+                      "itemid": "in",
+                      "name": "Duis",
+                      "price": "labore",
+                      "size": "tempor in"
+                    },
+                    {
+                      "itemid": "id",
+                      "name": "enim minim aute Excepteur",
+                      "price": "dolor commodo",
+                      "size": "est non"
+                    },
+                    {
+                      "itemid": "magna ",
+                      "name": "tempor culpa",
+                      "price": "magna incididunt",
+                      "size": "sint ali"
+                    },
+                    {
+                      "itemid": "",
+                      "name": "dolore est enim commodo aute",
+                      "price": "Ut Excepteur dolore ad",
+                      "size": "dolor qui"
+                    }
+                  ],
+                  "orderid": "occaecat sint ut"
+                },
+                {
+                  "customerid": "laborum amet",
+                  "shippingaddress": "aliqua",
+                  "orderheaderdata": {
+                    "total": "nulla culpa",
+                    "store": "irure"
+                  },
+                  "items": [
+                    {
+                      "itemid": "mollit proident Ut dolor ad",
+                      "name": "irure qui culpa adipisicing sit",
+                      "price": "adipisicing Excepteur aliquip",
+                      "size": "cillum enim ullamco"
+                    },
+                    {
+                      "itemid": "eu Ut irure in",
+                      "name": "sunt cillum anim qui",
+                      "price": "mollit consectetur est qui",
+                      "size": "amet ex in cupidatat"
+                    },
+                    {
+                      "itemid": "ut Excepteu",
+                      "name": "exercitation",
+                      "price": "in consequat adipisicing",
+                      "size": "ut ex consequat dolore"
+                    },
+                    {
+                      "itemid": "anim dolore",
+                      "name": "",
+                      "price": "consequat labore commodo",
+                      "size": "cillum laborum consequat ut"
+                    }
+                  ],
+                  "orderid": "commodo in elit ex"
+                },
+                {
+                  "customerid": "labore laboris nostrud esse",
+                  "shippingaddress": "sed",
+                  "orderheaderdata": {
+                    "total": "non",
+                    "store": "nisi Ut ullamco"
+                  },
+                  "items": [
+                    {
+                      "itemid": "cupidatat commodo amet ipsum",
+                      "name": "do aute eiusmod qui exercitation",
+                      "price": "reprehenderit fugiat aliqua",
+                      "size": "officia anim aliqua amet"
+                    },
+                    {
+                      "itemid": "adipisicing irure dolore",
+                      "name": "id dolor",
+                      "price": "commodo dolor id ea velit",
+                      "size": "labore et"
+                    },
+                    {
+                      "itemid": "reprehenderit",
+                      "name": "id eu",
+                      "price": "dolore",
+                      "size": "culpa a"
+                    },
+                    {
+                      "itemid": "ad",
+                      "name": "sint irure ullamco",
+                      "price": "ea non ",
+                      "size": "Ut minim non"
+                    },
+                    {
+                      "itemid": "aliquip aliqua reprehenderit e",
+                      "name": "incididunt occaecat dolor ir",
+                      "price": "qui exercitation non",
+                      "size": "aliqua dolor cupidatat amet"
+                    }
+                  ],
+                  "orderid": "non id culpa dolore"
+                }
+              ]
+            }
+          }
+        },
+        "x-flow": "orderApi-getOrder"
+      }
+    }
+  },
+  "definitions": {
+    "orders": {
+      "type": "object",
+      "title": "orders",
+      "properties": {
+        "customerid": {
+          "type": "string"
+        },
+        "shippingaddress": {
+          "type": "string"
+        },
+        "orderheaderdata": {
+          "type": "object",
+          "properties": {
+            "total": {
+              "type": "string"
+            },
+            "store": {
+              "type": "string"
+            }
+          }
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "itemid": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "price": {
+                "type": "string"
+              },
+              "size": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "orderid": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

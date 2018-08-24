@@ -1,0 +1,181 @@
+{
+	"schemaVersion": "3",
+	"info": {
+		"name": "postOrder"
+	},
+	"parameter": {
+		"properties": {
+			"params": {
+				"type": "object",
+				"description": "The parameters from the endpoint."
+			},
+			"request": {
+				"type": "object",
+				"description": "The HTTP request."
+			},
+			"config": {
+				"type": "object",
+				"description": "The service's configuration"
+			},
+			"env": {
+				"type": "object",
+				"description": "The host OS environment"
+			}
+		},
+		"additionalProperties": false,
+		"required": [
+			"params",
+			"request",
+			"config",
+			"env"
+		]
+	},
+	"start": "condition.1",
+	"nodes": {
+		"http.setresponse.1": {
+			"type": "nodehandler://axway-flow/http",
+			"method": "setresponse",
+			"name": "Set HTTP Response",
+			"parameters": [
+				{
+					"name": "status",
+					"type": "number",
+					"value": "201"
+				},
+				{
+					"name": "body",
+					"type": "jsonpath",
+					"value": "$.value"
+				}
+			],
+			"outputs": {
+				"next": {
+					"context": "$.response"
+				}
+			}
+		},
+		"Orders.1": {
+			"type": "nodehandler://api-builder-flow-invoke/model/Orders",
+			"name": "create",
+			"method": "create",
+			"parameters": [
+				{
+					"name": "data",
+					"type": "jsonpath",
+					"value": "$.request.body"
+				}
+			],
+			"outputs": {
+				"next": {
+					"routes": [
+						"doT.1"
+					],
+					"context": "$.created"
+				}
+			}
+		},
+		"doT.1": {
+			"type": "nodehandler://@axway/api-builder-plugin-fn-dot/doT",
+			"name": "Format object",
+			"method": "formatObj",
+			"parameters": [
+				{
+					"name": "data",
+					"type": "jsonpath",
+					"value": "$.request.body"
+				},
+				{
+					"name": "template",
+					"type": "string",
+					"value": "\"{\\\"orderid\\\":\\\"{{=it.orderid}}\\\"}\""
+				}
+			],
+			"outputs": {
+				"next": {
+					"routes": [
+						"http.setresponse.1"
+					],
+					"context": "$.value"
+				},
+				"error": {
+					"routes": [
+						"http.1"
+					],
+					"context": "$.error"
+				}
+			}
+		},
+		"http.1": {
+			"type": "nodehandler://axway-flow/http",
+			"name": "Set HTTP Response",
+			"method": "setresponse",
+			"parameters": [
+				{
+					"name": "status",
+					"type": "number",
+					"value": "201"
+				},
+				{
+					"name": "body",
+					"type": "jsonpath",
+					"value": "$.error"
+				}
+			],
+			"outputs": {
+				"next": {
+					"context": "$.response",
+					"routes": []
+				}
+			}
+		},
+		"condition.1": {
+			"type": "nodehandler://axway-flow/condition",
+			"name": "Exists",
+			"method": "exists",
+			"parameters": [
+				{
+					"name": "source",
+					"type": "jsonpath",
+					"value": "$.params.validateOnly"
+				}
+			],
+			"outputs": {
+				"true": {
+					"routes": [
+						"http.2"
+					],
+					"context": "$.exists"
+				},
+				"false": {
+					"routes": [
+						"Orders.1"
+					],
+					"context": "$.exists"
+				}
+			}
+		},
+		"http.2": {
+			"type": "nodehandler://axway-flow/http",
+			"name": "Set HTTP Response",
+			"method": "setresponse",
+			"parameters": [
+				{
+					"name": "body",
+					"type": "object",
+					"value": "{\"valid\": true}"
+				},
+				{
+					"name": "status",
+					"type": "number",
+					"value": "200"
+				}
+			],
+			"outputs": {
+				"next": {
+					"context": "$.response",
+					"routes": []
+				}
+			}
+		}
+	}
+}
